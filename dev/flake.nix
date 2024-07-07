@@ -25,6 +25,9 @@
           volta-test = {
             javascript.volta.enable = true;
           };
+          deno-test = {
+            javascript.deno.enable = true;
+          };
         };
       };
     };
