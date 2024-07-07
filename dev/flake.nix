@@ -1,5 +1,5 @@
 {
-  description = "Development environment for javascript-nix";
+  description = "Development environment and tests for javascript-nix";
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -14,9 +14,14 @@
       imports = [inputs.make-shell.flakeModules.default];
       perSystem = {...}: {
         make-shell.imports = [inputs.javascript-nix.shellModules.default];
-        make-shells.default = {pkgs, ...}: {
-          packages = [pkgs.alejandra];
-          javascript.node.enable = true;
+        make-shells = {
+          default = {pkgs, ...}: {
+            packages = [pkgs.alejandra];
+          };
+          node-test = {
+            javascript.node.enable = true;
+            javascript.node.corepack-shims = ["yarn" "pnpm"];
+          };
         };
       };
     };
