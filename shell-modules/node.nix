@@ -11,6 +11,7 @@
     package = lib.mkOption {
       type = types.package;
       default = pkgs.nodejs;
+      example = lib.literalExpression "pkgs.nodejs-slim";
     };
     corepack-shims = lib.mkOption {
       type = types.listOf types.str;

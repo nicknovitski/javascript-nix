@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+for example in ./examples/*; do
+  if [ -f "$example/flake.nix" ]; then
+    nix flake check --override-input javascript-nix ./. "$example"
+  fi
+done
