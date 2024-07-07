@@ -21,7 +21,7 @@
     "javascript-nix": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-hFqgvNSa0mrlzsdeDOZ8jWaoc5Q6jG2qIhw62tA1csc=",
+        "narHash": "sha256-rnwlQW3pGXucjvIybMsaixIDm1lzKNOZtBWElNlxpQw=",
         "path": "./..",
         "type": "path"
       },

@@ -22,6 +22,9 @@
             javascript.node.enable = true;
             javascript.node.corepack-shims = ["yarn" "pnpm"];
           };
+          volta-test = {
+            javascript.volta.enable = true;
+          };
         };
       };
     };
