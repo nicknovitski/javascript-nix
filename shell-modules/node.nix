@@ -8,6 +8,11 @@
     inherit (lib) types;
   in {
     enable = lib.mkEnableOption "javascript project";
+    env = lib.mkOption {
+      type = types.enum ["production" "development" "test"];
+      default = "development";
+      example = "test";
+    };
     package = lib.mkOption {
       type = types.package;
       default = pkgs.nodejs;
@@ -28,5 +33,6 @@
           mkdir -p $out/bin
           ${cfg.package}/bin/corepack enable --install-directory $out/bin ${lib.concatStringsSep " " cfg.corepack-shims}
         '');
+      env.NODE_ENV = cfg.env;
     };
 }
