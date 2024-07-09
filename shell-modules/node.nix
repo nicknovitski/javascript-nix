@@ -7,7 +7,7 @@
   options.javascript.node = let
     inherit (lib) types;
   in {
-    enable = lib.mkEnableOption "javascript project";
+    enable = lib.mkEnableOption "Node.js javascript runtime";
     env = lib.mkOption {
       type = types.enum ["production" "development" "test"];
       default = "development";

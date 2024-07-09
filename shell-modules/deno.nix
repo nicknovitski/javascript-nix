@@ -5,7 +5,7 @@
   ...
 }: {
   options.javascript.deno = {
-    enable = lib.mkEnableOption "deno javascript and typescript runtime";
+    enable = lib.mkEnableOption "Deno javascript and typescript runtime";
     install-root = lib.mkOption {
       default = "$HOME/.deno";
       example = "$(git rev-parse --show-toplevel)/.deno";

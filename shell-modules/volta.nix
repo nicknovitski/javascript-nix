@@ -5,7 +5,7 @@
   ...
 }: {
   options.javascript.volta = {
-    enable = lib.mkEnableOption "use volta to manage node versions";
+    enable = lib.mkEnableOption "Volta tool version manager";
     home = lib.mkOption {
       default = "$HOME/.volta";
       example = "$(git rev-parse --show-toplevel)/.volta";
