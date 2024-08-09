@@ -61,30 +61,9 @@ Default value: false
 
 ### javascript.node.env
 
-One of either `"production"`, `"development"`, or `"test"`.  If `javascript.node.enable` is true, then the `NODE_ENV` variable is set to this value in the environment.
+If set, then the `NODE_ENV` variable is set to this value in the environment. The only valid values are `"production"`, `"development"`, and `"test"`.
 
-Default value: `"development"`
-
-You can make different shells depending on what you intend to run in them.  For example:
-
-```nix
-# in a flake-parts flake.nix...
-perSystem = {...}: {
-  make-shell.imports = [
-    javascript-nix.shellModules.default
-    {javascript.node.enable = true;}
-  ];
-  make-shells = {
-    default = {pkgs, ...}: {
-      packages = [
-        # Interactive tools that only human developers need to use
-      ];
-    };
-    test = {javascript.node.env = "test";}; 
-    build = {javascript.node.env = "production";};
-  };
-};
-```
+Default value: unset
 
 ### javascript.node.package
 
