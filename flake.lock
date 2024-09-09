@@ -1,20 +1,24 @@
 {
   "nodes": {
-    "releases": {
+    "flake-compat": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-n7PXmGMESYnNh9MbTthokoEtwXinRvn0+07r90MImNU=",
-        "type": "file",
-        "url": "https://nodejs.org/download/release/index.json"
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://nodejs.org/download/release/index.json"
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "releases": "releases"
+        "flake-compat": "flake-compat"
       }
     }
   },
