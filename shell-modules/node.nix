@@ -13,6 +13,12 @@
       default = null;
       example = "development";
     };
+    options = mkOption {
+      default = "";
+      description = "Command line options set in the NODE_OPTIONS environment variable";
+      example = "--require './path/to/file.js'";
+      type = types.separatedString " ";
+    };
     package = lib.mkOption {
       type = types.package;
       default = pkgs.nodejs;
@@ -27,10 +33,7 @@
   config = let
     cfg = config.javascript.node;
   in {
-    env =
-      if cfg.env == null
-      then {}
-      else {NODE_ENV = cfg.env;};
+    env = {NODE_OPTIONS = cfg.options;} // (lib.attrsets.optionalAttrs (cfg.env == null) {NODE_ENV = cfg.env;});
     packages = lib.optionals cfg.enable ([cfg.package]
       ++ lib.lists.optional (builtins.length cfg.corepack-shims != 0) (pkgs.runCommand "corepack-enable" {} ''
         mkdir -p $out/bin
