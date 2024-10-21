@@ -33,7 +33,7 @@
   config = let
     cfg = config.javascript.node;
   in {
-    env = {NODE_OPTIONS = cfg.options;} // (lib.attrsets.optionalAttrs (cfg.env == null) {NODE_ENV = cfg.env;});
+    env = {NODE_OPTIONS = cfg.options;} // (lib.attrsets.optionalAttrs (cfg.env != null) {NODE_ENV = cfg.env;});
     packages = lib.optionals cfg.enable ([cfg.package]
       ++ lib.lists.optional (builtins.length cfg.corepack-shims != 0) (pkgs.runCommand "corepack-enable" {} ''
         mkdir -p $out/bin
