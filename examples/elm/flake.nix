@@ -19,16 +19,9 @@
       imports = [make-shell.flakeModules.default];
       perSystem = {...}: {
         make-shell.imports = [javascript-nix.shellModules.default];
-        make-shells.default = {pkgs, ...}: {
+        make-shells.default = {pkgs, lib, ...}: {
           javascript.node.enable = true;
-          packages = let
-            ep = pkgs.elmPackages;
-          in [
-            ep.elm
-            ep.elm-format
-            ep.elm-test
-            ep.elm-language-server
-          ];
+          packages = lib.attrsets.attrVals [ "elm" "elm-test" "elm-language-server" ] pkgs.elmPackages;
         };
       };
     };
