@@ -14,10 +14,10 @@
       example = "development";
     };
     options = mkOption {
-      default = "";
+      default = null;
       description = "Command line options set in the NODE_OPTIONS environment variable";
       example = "--require './path/to/file.js'";
-      type = types.separatedString " ";
+      type = types.nullOr (types.separatedString " ");
     };
     package = lib.mkOption {
       type = types.package;
@@ -33,11 +33,17 @@
   config = let
     cfg = config.javascript.node;
   in {
-    env = {NODE_OPTIONS = cfg.options;} // (lib.attrsets.optionalAttrs (cfg.env != null) {NODE_ENV = cfg.env;});
-    packages = lib.optionals cfg.enable ([cfg.package]
-      ++ lib.lists.optional (builtins.length cfg.corepack-shims != 0) (pkgs.runCommand "corepack-enable" {} ''
-        mkdir -p $out/bin
-        ${cfg.package}/bin/corepack enable --install-directory $out/bin ${lib.concatStringsSep " " cfg.corepack-shims}
-      ''));
+    env =
+      (lib.attrsets.optionalAttrs (cfg.options != null) {NODE_OPTIONS = cfg.options;})
+      // (lib.attrsets.optionalAttrs (cfg.env != null) {NODE_ENV = cfg.env;});
+    packages = lib.optionals cfg.enable (
+      [cfg.package]
+      ++ lib.lists.optional (builtins.length cfg.corepack-shims != 0) (
+        pkgs.runCommand "corepack-enable" {} ''
+          mkdir -p $out/bin
+          ${cfg.package}/bin/corepack enable --install-directory $out/bin ${lib.concatStringsSep " " cfg.corepack-shims}
+        ''
+      )
+    );
   };
 }
