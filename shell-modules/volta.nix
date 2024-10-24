@@ -49,5 +49,31 @@
         VOLTA_HOME="${cfg.home}"
         export VOLTA_HOME
       '';
+
+      # When a volta shim runs an npm script, if the environment variable
+      # _VOLTA_TOOL_RECURSION is not set, it sets it in the script's
+      # environment, and prepends the directory containing the non-shim tools
+      # of the pinned version to PATH.
+      #
+      # So with a package.json file like this, the command `npm run script`
+      # will run the shim `npm`, and the actual node version 23.0.0, with the
+      # output "v23.0.0":
+      # ```json
+      # {
+      #   "scripts": { "script": "node --version" },
+      #   "volta": { "node": "23.0.0" }
+      # }
+      # ```
+      #
+      # However, if the script evaluates this shell again, then the directory
+      # containing all the shims will be prepended to PATH, prioritizing them
+      # over the non-shim tools.  If the script then runs any of those shims,
+      # they will not modify PATH, because _VOLTA_TOOL_RECURSION will be set.
+      # This can happen with scripts that use `direnv exec`, and can cause
+      # scripts to hang, or to error with `Volta error: <tool> is not
+      # available`.
+      #
+      # To prevent all this, we unset the variable when entering a shell.
+      env._VOLTA_TOOL_RECURSION = null;
     };
 }

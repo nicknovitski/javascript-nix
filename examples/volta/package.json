@@ -1,0 +1,6 @@
+{
+  "name": "example-volta-project",
+  "version": "1.0.0",
+  "license": "MIT",
+  "volta": { "node": "23.0.0" }
+}
