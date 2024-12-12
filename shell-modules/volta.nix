@@ -42,8 +42,7 @@
       # from PATH.
       shellHook = ''
         if [ -n "''${VOLTA_HOME:-}" ]; then
-          eval "$(${pkgs.direnv}/bin/direnv stdlib)"
-          PATH_rm "$VOLTA_HOME"
+          export PATH=$(${pkgs.gnused}/bin/sed --regexp-extended --expression="s;$VOLTA_HOME/bin:\?;;" --expression="s;:\?$VOLTA_HOME/bin;;" <<< "$PATH")
           unset VOLTA_HOME
         fi
         VOLTA_HOME="${cfg.home}"
